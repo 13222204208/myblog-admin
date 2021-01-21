@@ -3,17 +3,17 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
+Route::prefix('admin')->group(function (){
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+    Route::group(['namespace' => 'Admin\Login'], function () {
+
+        Route::post('login','LoginController@login');//登录
+
+        Route::post('logout','LoginController@logout');//登出
+
+        Route::group(['middleware' => 'jwt.auth'], function () {
+            Route::get('info','LoginController@info');//获取后台登陆信息      
+        });
+    });
+
 });
