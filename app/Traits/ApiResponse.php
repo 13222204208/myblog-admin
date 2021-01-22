@@ -128,7 +128,7 @@ trait ApiResponse
     public function success($data= null){
 
         return response()->json([
-            'code' =>200,
+            'code' =>1,
             'message' =>'成功',
             'data' => $data
         ]);

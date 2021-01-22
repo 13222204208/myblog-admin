@@ -12,7 +12,19 @@ Route::prefix('admin')->group(function (){
         Route::post('logout','LoginController@logout');//登出
 
         Route::group(['middleware' => 'jwt.auth'], function () {
-            Route::get('info','LoginController@info');//获取后台登陆信息      
+            Route::get('info','LoginController@info');//获取后台登陆信息     
+            
+            Route::resource('user', 'UserController');
+             
+        });
+    });
+
+    Route::group(['namespace' => 'Admin\User'], function () {
+
+        Route::group(['middleware' => 'jwt.auth'], function () {    
+            
+            Route::resource('user', 'UserController');
+             
         });
     });
 
